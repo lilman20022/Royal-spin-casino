@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --casino-gold: #FFD700;
+  --casino-dark: #1a1a2e;
+  --casino-darker: #0f0f1e;
+  --casino-accent: #e94560;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--casino-darker);
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
+
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--casino-darker) 0%, var(--casino-dark) 100%);
+}
+
+.main-content {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.btn {
+  @apply px-6 py-2 rounded-lg font-semibold transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-casino-gold text-black hover:bg-yellow-400;
+}
+
+.btn-secondary {
+  @apply bg-casino-accent text-white hover:bg-red-600;
+}
+
+.btn-outline {
+  @apply border-2 border-casino-gold text-casino-gold hover:bg-casino-gold hover:text-black;
+}
+
+.card {
+  @apply bg-casino-dark rounded-lg p-6 shadow-lg;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 bg-casino-darker border border-casino-gold rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-casino-gold;
+}
+
+.slot-machine {
+  @apply bg-gradient-to-b from-casino-gold to-yellow-600 rounded-2xl p-8 shadow-2xl;
+}
+
+.reel {
+  @apply inline-block w-20 h-20 bg-black rounded-lg mx-2 flex items-center justify-center text-2xl font-bold;
+}
+
+.spin-button {
+  @apply bg-casino-gold text-black font-bold py-4 px-8 rounded-lg hover:bg-yellow-400 transition-all duration-200 text-lg;
+}
+
+.win-animation {
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.glow {
+  box-shadow: 0 0 20px var(--casino-gold);
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

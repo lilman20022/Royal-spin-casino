@@ -4,19 +4,19 @@ WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install
 
 # Copy application files
 COPY server ./server
 COPY src ./src
 COPY public ./public
+COPY index.html ./
+COPY postcss.config.js ./
+COPY tailwind.config.js ./
+COPY vite.config.js ./
 
 # Expose port
 EXPOSE 5000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:5000/api/health', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
 
 # Start application
 CMD ["npm", "start"]

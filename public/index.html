@@ -3,455 +3,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Spin Casino - 3D Slots</title>
+    <title>Royal Spin Casino</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; height: 100%; }
+        html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; }
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0e27;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 100%);
             color: #fff;
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
         }
-        #canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .ui-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-        }
+        
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 20px 40px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, transparent 100%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 101;
-            pointer-events: auto;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            border-bottom: 2px solid #ffd700;
         }
+        
         .logo {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd700;
             letter-spacing: 2px;
         }
-        .wallet {
-            background: rgba(0, 212, 255, 0.2);
-            padding: 12px 25px;
-            border-radius: 8px;
-            border: 2px solid #00d4ff;
-            backdrop-filter: blur(10px);
+        
+        .balance {
+            font-size: 18px;
+            color: #00d4ff;
+            font-weight: bold;
         }
-        .balance-label {
-            font-size: 12px;
-            color: rgba(0, 212, 255, 0.7);
-            text-transform: uppercase;
+        
+        .main-container {
+            display: flex;
+            flex: 1;
+            gap: 10px;
+            padding: 10px;
+            overflow: hidden;
         }
-        .balance-value {
-            font-size: 24px;
-            color: #ffd700;
-            font-weight: 800;
-        }
-        .left-panel {
-            position: fixed;
-            left: 20px;
-            top: 100px;
+        
+        .left-sidebar {
+            width: 150px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            z-index: 101;
-            pointer-events: auto;
+            gap: 8px;
+            overflow-y: auto;
+            padding-right: 5px;
         }
+        
         .game-btn {
-            padding: 10px 15px;
+            padding: 10px;
             background: rgba(255, 215, 0, 0.1);
             border: 2px solid rgba(255, 215, 0, 0.3);
             color: #ffd700;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 12px;
+            font-weight: bold;
+            font-size: 11px;
             transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-align: center;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .game-btn:hover:not(:disabled) {
+        
+        .game-btn:hover {
             background: rgba(255, 215, 0, 0.3);
             border-color: #ffd700;
-            transform: translateX(3px);
         }
+        
         .game-btn.active {
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            background: #ffd700;
             color: #000;
             border-color: #ffd700;
         }
+        
         .game-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-        .right-panel {
-            position: fixed;
-            right: 20px;
-            top: 100px;
-            background: rgba(0, 212, 255, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            max-width: 250px;
-            z-index: 101;
-            pointer-events: auto;
-            backdrop-filter: blur(10px);
-        }
-        .info-row {
+        
+        .center-area {
+            flex: 1;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 13px;
+            flex-direction: column;
+            gap: 10px;
         }
+        
+        .game-info {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            font-size: 12px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            gap: 5px;
+        }
+        
         .info-label {
             color: rgba(0, 212, 255, 0.6);
-            text-transform: uppercase;
+            font-weight: bold;
         }
+        
         .info-value {
             color: #ffd700;
-            font-weight: 700;
         }
-        .bottom-controls {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+        
+        #gameContainer {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
             display: flex;
-            gap: 12px;
-            z-index: 101;
-            pointer-events: auto;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
         }
-        .control-btn {
-            padding: 12px 24px;
+        
+        .reels-display {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .reel {
+            background: linear-gradient(135deg, #1a1a3e 0%, #2a2a5e 100%);
+            border: 3px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            min-width: 100px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 40px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255, 215, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reel.spinning {
+            animation: spinReel 0.6s linear infinite;
+        }
+        
+        @keyframes spinReel {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .reel-symbol {
+            transition: all 0.3s;
+        }
+        
+        .controls {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            border-top: 2px solid #ffd700;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
             background: rgba(255, 215, 0, 0.15);
             border: 2px solid rgba(255, 215, 0, 0.4);
             color: #ffd700;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: bold;
             font-size: 12px;
             transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-        .control-btn:hover:not(:disabled) {
+        
+        .btn:hover:not(:disabled) {
             background: rgba(255, 215, 0, 0.3);
             border-color: #ffd700;
-            transform: translateY(-2px);
         }
-        .control-btn:disabled {
+        
+        .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
+        
         .spin-btn {
-            padding: 14px 40px;
+            padding: 12px 40px;
             background: linear-gradient(135deg, #00d4ff, #0099cc);
             border: 2px solid #00d4ff;
             color: #fff;
             font-size: 13px;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
+        
         .spin-btn:hover:not(:disabled) {
             box-shadow: 0 0 40px rgba(0, 212, 255, 0.8);
-            transform: translateY(-3px);
         }
+        
         .win-modal {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.95);
-            padding: 40px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 8px;
             border: 3px solid #ffd700;
             text-align: center;
             z-index: 1000;
             display: none;
-            min-width: 350px;
+            min-width: 300px;
             box-shadow: 0 0 60px rgba(255, 215, 0, 0.5);
-            pointer-events: auto;
         }
+        
         .win-modal.show {
             display: block;
-            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: popIn 0.5s ease-out;
         }
+        
         @keyframes popIn {
-            0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
+        
         .win-title {
-            font-size: 36px;
+            font-size: 28px;
             color: #ffd700;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
+        
         .win-amount {
-            font-size: 44px;
+            font-size: 36px;
             color: #00d4ff;
-            margin-bottom: 20px;
-            font-weight: 800;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
+        
         .close-btn {
             padding: 10px 30px;
             background: #ffd700;
             color: #000;
             border: none;
-            border-radius: 6px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 700;
-            font-size: 12px;
+            font-weight: bold;
         }
+        
         .close-btn:hover {
             background: #ffed4e;
         }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <div class="header">
+        <div class="logo">🎰 ROYAL SPIN CASINO</div>
+        <div class="balance">Balance: $<span id="balance">5000.00</span></div>
+    </div>
 
-    <div class="ui-overlay">
-        <div class="header">
-            <div class="logo">🎰 ROYAL SPIN</div>
-            <div class="wallet">
-                <div class="balance-label">Balance</div>
-                <div class="balance-value" id="balanceDisplay">$5,000.00</div>
+    <div class="main-container">
+        <div class="left-sidebar" id="gameSelector"></div>
+        
+        <div class="center-area">
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="info-label">Game:</span>
+                    <span class="info-value" id="gameName">Buffalo Gold</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">RTP:</span>
+                    <span class="info-value" id="rtp">95.5%</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Bet:</span>
+                    <span class="info-value">$<span id="betAmount">10.00</span></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status:</span>
+                    <span class="info-value" id="status">Ready</span>
+                </div>
             </div>
-        </div>
-
-        <div class="left-panel" id="gameSelector"></div>
-
-        <div class="right-panel">
-            <div class="info-row">
-                <span class="info-label">Game</span>
-                <span class="info-value" id="gameName">Buffalo Gold</span>
+            
+            <div id="gameContainer">
+                <div class="reels-display" id="reelsDisplay"></div>
             </div>
-            <div class="info-row">
-                <span class="info-label">RTP</span>
-                <span class="info-value" id="rtpDisplay">95.5%</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Bet</span>
-                <span class="info-value" id="betDisplay">$10.00</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Status</span>
-                <span class="info-value" id="statusDisplay">Ready</span>
-            </div>
-        </div>
-
-        <div class="bottom-controls">
-            <button class="control-btn" id="betDownBtn">- Bet</button>
-            <button class="control-btn" id="betUpBtn">+ Bet</button>
-            <button class="control-btn spin-btn" id="spinBtn">SPIN</button>
-            <button class="control-btn" id="maxBetBtn">Max Bet</button>
-        </div>
-
-        <div class="win-modal" id="winModal">
-            <div class="win-title" id="winTitle">🎉 YOU WIN! 🎉</div>
-            <div class="win-amount" id="winAmount">+$500.00</div>
-            <button class="close-btn" onclick="closeWinModal()">Continue</button>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <div class="controls">
+        <button class="btn" id="betDown">- Bet</button>
+        <button class="btn" id="betUp">+ Bet</button>
+        <button class="btn spin-btn" id="spinBtn">SPIN</button>
+        <button class="btn" id="maxBet">Max Bet</button>
+    </div>
+
+    <div class="win-modal" id="winModal">
+        <div class="win-title" id="winTitle">🎉 YOU WIN! 🎉</div>
+        <div class="win-amount" id="winAmount">+$500.00</div>
+        <button class="close-btn" onclick="closeWinModal()">Continue</button>
+    </div>
 
     <script>
         const GAMES = {
-            buffalo: { name: 'Buffalo Gold', reels: 3, rows: 5, rtp: 95.5, symbols: ['🦬', '🌾', '⭐', '💎', '🏆'] },
-            dragon: { name: 'Dragon Link', reels: 4, rows: 5, rtp: 96.2, symbols: ['🐉', '🔥', '💰', '👑', '🎯'] },
-            lightning: { name: 'Lightning Link', reels: 3, rows: 5, rtp: 95.8, symbols: ['⚡', '💛', '🌟', '💎', '🎰'] },
-            fortunes: { name: '88 Fortunes', reels: 4, rows: 5, rtp: 96.0, symbols: ['8️⃣', '🧧', '🏮', '🎊', '💰'] },
-            wheel: { name: 'Wheel of Fortune', reels: 3, rows: 5, rtp: 94.8, symbols: ['🎡', '💎', '🏆', '⭐', '💰'] },
-            drums: { name: 'Dancing Drums', reels: 4, rows: 5, rtp: 95.3, symbols: ['🥁', '🎵', '💃', '🎶', '🌟'] }
+            buffalo: { name: 'Buffalo Gold', reels: 3, rtp: 95.5, symbols: ['🦬', '🌾', '⭐', '💎', '🏆'] },
+            dragon: { name: 'Dragon Link', reels: 4, rtp: 96.2, symbols: ['🐉', '🔥', '💰', '👑', '🎯'] },
+            lightning: { name: 'Lightning Link', reels: 3, rtp: 95.8, symbols: ['⚡', '💛', '🌟', '💎', '🎰'] },
+            fortunes: { name: '88 Fortunes', reels: 4, rtp: 96.0, symbols: ['8️⃣', '🧧', '🏮', '🎊', '💰'] },
+            wheel: { name: 'Wheel of Fortune', reels: 3, rtp: 94.8, symbols: ['🎡', '💎', '🏆', '⭐', '💰'] },
+            drums: { name: 'Dancing Drums', reels: 4, rtp: 95.3, symbols: ['🥁', '🎵', '💃', '🎶', '🌟'] }
         };
 
-        let gameState = {
+        let state = {
             balance: 5000,
-            currentBet: 10,
+            bet: 10,
             minBet: 1,
             maxBet: 1000,
             isSpinning: false,
-            currentGame: 'buffalo'
+            currentGame: 'buffalo',
+            reelValues: []
         };
 
-        // Three.js Setup
-        const canvas = document.getElementById('canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+        function initGameSelector() {
+            const selector = document.getElementById('gameSelector');
+            Object.entries(GAMES).forEach(([key, game]) => {
+                const btn = document.createElement('button');
+                btn.className = 'game-btn' + (key === 'buffalo' ? ' active' : '');
+                btn.textContent = game.name;
+                btn.dataset.game = key;
+                btn.addEventListener('click', () => switchGame(key, btn));
+                selector.appendChild(btn);
+            });
+        }
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x0a0e27, 1);
+        function switchGame(gameKey, button) {
+            if (state.isSpinning) return;
+            
+            state.currentGame = gameKey;
+            state.bet = 10;
+            
+            document.querySelectorAll('.game-btn').forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
+            
+            updateDisplay();
+            renderReels();
+        }
 
-        camera.position.z = 6;
-
-        // Lighting
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(5, 5, 5);
-        scene.add(light);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-
-        let slotMachine = null;
-
-        function createSlotMachine() {
-            const group = new THREE.Group();
-            const game = GAMES[gameState.currentGame];
-            const reels = [];
-
-            const reelSpacing = 4 / (game.reels + 1);
-
+        function renderReels() {
+            const game = GAMES[state.currentGame];
+            const container = document.getElementById('reelsDisplay');
+            container.innerHTML = '';
+            
             for (let i = 0; i < game.reels; i++) {
-                const reel = createReel(game, i);
-                reel.position.x = -1.5 + (i + 1) * reelSpacing;
-                group.add(reel);
-                reels.push(reel);
+                const reel = document.createElement('div');
+                reel.className = 'reel';
+                reel.id = `reel-${i}`;
+                
+                const symbol = document.createElement('div');
+                symbol.className = 'reel-symbol';
+                symbol.textContent = game.symbols[Math.floor(Math.random() * game.symbols.length)];
+                
+                reel.appendChild(symbol);
+                container.appendChild(reel);
             }
-
-            group.reels = reels;
-            group.game = game;
-            return group;
         }
 
-        function createReel(game, index) {
-            const group = new THREE.Group();
-
-            // Create canvas texture with symbols
-            const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256 * game.rows;
-            const ctx = canvas.getContext('2d');
-
-            // Background
-            ctx.fillStyle = '#1a1a3e';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw symbols
-            const symbolHeight = canvas.height / game.rows;
-            game.symbols.forEach((symbol, i) => {
-                ctx.fillStyle = '#ffd700';
-                ctx.font = 'bold 80px Arial';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(symbol, canvas.width / 2, symbolHeight / 2 + i * symbolHeight);
-
-                // Border around each symbol
-                ctx.strokeStyle = 'rgba(255, 215, 0, 0.3)';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(10, i * symbolHeight + 10, canvas.width - 20, symbolHeight - 20);
-            });
-
-            const texture = new THREE.CanvasTexture(canvas);
-            texture.magFilter = THREE.LinearFilter;
-            texture.minFilter = THREE.LinearFilter;
-
-            // Reel geometry
-            const geometry = new THREE.BoxGeometry(0.8, 2, 0.2);
-            const material = new THREE.MeshStandardMaterial({
-                map: texture,
-                metalness: 0.3,
-                roughness: 0.7
-            });
-
-            const reel = new THREE.Mesh(geometry, material);
-            reel.castShadow = true;
-            reel.receiveShadow = true;
-            group.add(reel);
-
-            // Frame
-            const frameGeometry = new THREE.BoxGeometry(0.9, 2.1, 0.05);
-            const frameMaterial = new THREE.MeshStandardMaterial({
-                color: 0xffd700,
-                metalness: 0.9,
-                roughness: 0.1
-            });
-            const frame = new THREE.Mesh(frameGeometry, frameMaterial);
-            frame.position.z = 0.15;
-            frame.castShadow = true;
-            group.add(frame);
-
-            group.reel = reel;
-            group.currentRotation = 0;
-
-            return group;
-        }
-
-        function updateUI() {
-            const game = GAMES[gameState.currentGame];
-            document.getElementById('balanceDisplay').textContent = '$' + gameState.balance.toFixed(2);
+        function updateDisplay() {
+            const game = GAMES[state.currentGame];
+            document.getElementById('balance').textContent = state.balance.toFixed(2);
             document.getElementById('gameName').textContent = game.name;
-            document.getElementById('rtpDisplay').textContent = game.rtp + '%';
-            document.getElementById('betDisplay').textContent = '$' + gameState.currentBet.toFixed(2);
+            document.getElementById('rtp').textContent = game.rtp + '%';
+            document.getElementById('betAmount').textContent = state.bet.toFixed(2);
         }
 
         async function spin() {
-            if (gameState.isSpinning || gameState.balance < gameState.currentBet) return;
-
-            gameState.isSpinning = true;
-            gameState.balance -= gameState.currentBet;
-            document.getElementById('statusDisplay').textContent = 'Spinning...';
+            if (state.isSpinning || state.balance < state.bet) return;
+            
+            state.isSpinning = true;
+            state.balance -= state.bet;
+            document.getElementById('status').textContent = 'Spinning...';
             document.getElementById('spinBtn').disabled = true;
-
-            const game = GAMES[gameState.currentGame];
-
-            // Spin all reels
-            const spinPromises = slotMachine.reels.map((reel, index) => {
-                return new Promise(resolve => {
-                    const rotations = 8 + Math.random() * 4;
-                    gsap.to(reel, {
-                        rotation: rotations * Math.PI * 2,
-                        duration: 2 + index * 0.2,
-                        ease: 'power2.inOut',
-                        onComplete: resolve
-                    });
-                });
-            });
-
-            await Promise.all(spinPromises);
-
+            
+            const game = GAMES[state.currentGame];
+            const reels = document.querySelectorAll('.reel');
+            
+            // Add spinning animation
+            reels.forEach(reel => reel.classList.add('spinning'));
+            
+            // Spin duration
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // Remove spinning animation
+            reels.forEach(reel => reel.classList.remove('spinning'));
+            
             // Generate results
-            const results = game.symbols.map(() => game.symbols[Math.floor(Math.random() * game.symbols.length)]);
+            const results = [];
+            reels.forEach((reel, index) => {
+                const symbol = game.symbols[Math.floor(Math.random() * game.symbols.length)];
+                results.push(symbol);
+                reel.querySelector('.reel-symbol').textContent = symbol;
+            });
+            
+            // Check win
             const isWin = results.every(s => s === results[0]);
             let winAmount = 0;
-
+            
             if (isWin) {
-                winAmount = gameState.currentBet * (50 + Math.random() * 100);
-                gameState.balance += winAmount;
+                winAmount = state.bet * (50 + Math.random() * 100);
+                state.balance += winAmount;
                 showWinModal(true, winAmount);
             } else {
-                showWinModal(false, gameState.currentBet);
+                showWinModal(false, state.bet);
             }
-
-            gameState.isSpinning = false;
-            document.getElementById('statusDisplay').textContent = 'Ready';
+            
+            state.isSpinning = false;
+            document.getElementById('status').textContent = 'Ready';
             document.getElementById('spinBtn').disabled = false;
-            updateUI();
+            updateDisplay();
         }
 
         function showWinModal(isWin, amount) {
@@ -470,74 +452,25 @@
             document.getElementById('winModal').classList.remove('show');
         }
 
-        function initializeGameSelector() {
-            const selector = document.getElementById('gameSelector');
-            Object.entries(GAMES).forEach(([key, game]) => {
-                const btn = document.createElement('button');
-                btn.className = 'game-btn' + (key === 'buffalo' ? ' active' : '');
-                btn.textContent = game.name;
-                btn.dataset.game = key;
-                btn.addEventListener('click', () => switchGame(key, btn));
-                selector.appendChild(btn);
-            });
-        }
-
-        function switchGame(gameKey, button) {
-            if (gameState.isSpinning) return;
-
-            gameState.currentGame = gameKey;
-            gameState.currentBet = 10;
-
-            document.querySelectorAll('.game-btn').forEach(b => b.classList.remove('active'));
-            button.classList.add('active');
-
-            scene.remove(slotMachine);
-            slotMachine = createSlotMachine();
-            scene.add(slotMachine);
-
-            updateUI();
-        }
-
-        // Event Listeners
+        // Event listeners
         document.getElementById('spinBtn').addEventListener('click', spin);
-        document.getElementById('betUpBtn').addEventListener('click', () => {
-            gameState.currentBet = Math.min(gameState.currentBet + 10, gameState.maxBet);
-            updateUI();
+        document.getElementById('betUp').addEventListener('click', () => {
+            state.bet = Math.min(state.bet + 10, state.maxBet);
+            updateDisplay();
         });
-        document.getElementById('betDownBtn').addEventListener('click', () => {
-            gameState.currentBet = Math.max(gameState.currentBet - 10, gameState.minBet);
-            updateUI();
+        document.getElementById('betDown').addEventListener('click', () => {
+            state.bet = Math.max(state.bet - 10, state.minBet);
+            updateDisplay();
         });
-        document.getElementById('maxBetBtn').addEventListener('click', () => {
-            gameState.currentBet = Math.min(gameState.maxBet, gameState.balance);
-            updateUI();
-        });
-
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            if (slotMachine) {
-                slotMachine.rotation.y += 0.0005;
-            }
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Handle Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('maxBet').addEventListener('click', () => {
+            state.bet = Math.min(state.maxBet, state.balance);
+            updateDisplay();
         });
 
         // Initialize
-        initializeGameSelector();
-        slotMachine = createSlotMachine();
-        scene.add(slotMachine);
-        updateUI();
+        initGameSelector();
+        renderReels();
+        updateDisplay();
     </script>
 </body>
 </html>

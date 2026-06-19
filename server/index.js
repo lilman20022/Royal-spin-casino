@@ -1,44 +1,42 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import pkg from 'pg';
-import authRoutes from './routes/auth.js';
-import walletRoutes from './routes/wallet.js';
-import gamesRoutes from './routes/games.js';
-import transactionRoutes from './routes/transactions.js';
-import adminRoutes from './routes/admin.js';
-
 dotenv.config();
 
-const { Pool } = pkg;
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-// Database Connection Pool
-export const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME || 'casino_db'
-});
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('dist'));
+app.use(express.static('public'));
 
 // Health Check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// API Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/wallet', walletRoutes);
-app.use('/api/games', gamesRoutes);
-app.use('/api/transactions', transactionRoutes);
-app.use('/api/admin', adminRoutes);
+// Test Routes
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Royal Spin Casino API is running!' });
+});
+
+app.get('/api/games', (req, res) => {
+  res.json({
+    games: [
+      { id: 1, name: 'Buffalo Gold', rtp: 0.94 },
+      { id: 2, name: 'Dragon Link', rtp: 0.96 },
+      { id: 3, name: 'Lightning Link', rtp: 0.95 },
+      { id: 4, name: '88 Fortunes', rtp: 0.94 },
+      { id: 5, name: 'Wheel of Fortune', rtp: 0.92 },
+      { id: 6, name: 'Dancing Drums', rtp: 0.93 }
+    ]
+  });
+});
+
+app.post('/api/games/:gameId/spin', (req, res) => {
+  res.json({ success: true, result: 'WIN', amount: 250 });
+});
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {

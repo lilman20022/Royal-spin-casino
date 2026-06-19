@@ -3,696 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royal Spin Casino - Premium Online Gaming</title>
+    <title>Royal Spin Casino - 3D Gaming Experience</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700;800&display=swap');
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f0f2e 100%);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        header {
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(255, 215, 0, 0.1) 50%, rgba(0, 0, 0, 0.9) 100%);
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 3px solid #ffd700;
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
-            position: relative;
-            z-index: 10;
-        }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5em;
-            color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3);
-            margin-bottom: 5px;
-            letter-spacing: 3px;
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.3); }
-            50% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.5); }
-        }
-
-        .subtitle {
-            color: #00d4ff;
-            font-size: 1.2em;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 5;
-        }
-
-        .status-banner {
-            background: linear-gradient(90deg, rgba(10, 126, 10, 0.3) 0%, rgba(0, 212, 255, 0.1) 100%);
-            border: 2px solid #00d4ff;
-            color: #00ff88;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1em;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-
-        .game-card {
-            background: linear-gradient(135deg, rgba(45, 53, 97, 0.8) 0%, rgba(26, 26, 46, 0.8) 100%);
-            border: 3px solid #ffd700;
-            border-radius: 15px;
-            padding: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 215, 0, 0.1);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 0%, rgba(255, 215, 0, 0.1) 50%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .game-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.4), inset 0 0 30px rgba(255, 215, 0, 0.2);
-            border-color: #ffed4e;
-        }
-
-        .game-card:hover::before {
-            opacity: 1;
-        }
-
-        .game-visual {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4em;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-visual::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .game-content {
-            padding: 25px;
-        }
-
-        .game-card h3 {
-            color: #ffd700;
-            margin-bottom: 8px;
-            font-size: 1.5em;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 1px;
-        }
-
-        .game-rtp {
-            background: linear-gradient(90deg, rgba(255, 215, 0, 0.2) 0%, rgba(0, 212, 255, 0.1) 100%);
-            color: #00ff88;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 12px;
-            font-weight: bold;
-            border-left: 3px solid #ffd700;
-        }
-
-        .game-desc {
-            color: #aaa;
-            margin-bottom: 20px;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .btn-play {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #000;
-            border: none;
-            padding: 14px 35px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.05em;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-play::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.3);
-            transition: left 0.3s ease;
-        }
-
-        .btn-play:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-        }
-
-        .btn-play:hover::before {
-            left: 100%;
-        }
-
-        .btn-play:active {
-            transform: scale(0.95);
-        }
-
-        .section-title {
-            color: #ffd700;
-            font-size: 2.5em;
-            margin: 50px 0 30px 0;
-            border-bottom: 3px solid #ffd700;
-            padding-bottom: 15px;
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-        }
-
-        .feature-box {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
-            padding: 25px;
-            border-radius: 10px;
-            border: 2px solid #ffd700;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
-            border-color: #00d4ff;
-        }
-
-        .feature-box:hover::before {
-            opacity: 1;
-        }
-
-        .feature-box h3 {
-            color: #ffd700;
-            margin-bottom: 10px;
-            font-size: 1.3em;
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-box p {
-            color: #aaa;
-            font-size: 0.95em;
-            position: relative;
-            z-index: 1;
-        }
-
-        .info-box {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(0, 212, 255, 0.05) 100%);
-            border: 2px solid #ffd700;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 40px 0;
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.1);
-        }
-
-        .info-box h2 {
-            color: #ffd700;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .info-box ul {
-            margin-left: 20px;
-            line-height: 2.2;
-        }
-
-        .info-box li {
-            color: #ccc;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 2px solid #ffd700;
-            margin-top: 60px;
-            color: #aaa;
-            background: rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 5;
-        }
-
-        .footer-text {
-            margin-bottom: 10px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 100%);
-            margin: 5% auto;
-            padding: 40px;
-            border: 3px solid #ffd700;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.4);
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .close {
-            color: #ffd700;
-            float: right;
-            font-size: 2em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .close:hover {
-            color: #ffed4e;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-        }
-
-        .slot-machine {
-            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 100%);
-            border: 4px solid #ffd700;
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .reels {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 30px 0;
-        }
-
-        .reel {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 100%);
-            border: 3px solid #ffd700;
-            border-radius: 10px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .reel.spinning {
-            animation: spin 0.5s linear;
-        }
-
-        @keyframes spin {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-
-        .spin-button {
-            background: linear-gradient(135deg, #ff6b00 0%, #ff8c00 100%);
-            color: #fff;
-            border: none;
-            padding: 20px 50px;
-            border-radius: 10px;
-            font-size: 1.3em;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            letter-spacing: 2px;
-            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
-        }
-
-        .spin-button:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(255, 107, 0, 0.6);
-        }
-
-        .spin-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .result {
-            text-align: center;
-            font-size: 1.5em;
-            margin-top: 20px;
-            color: #00ff88;
-            font-weight: bold;
-            min-height: 30px;
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            .section-title { font-size: 1.8em; }
-            .games-grid { grid-template-columns: 1fr; }
-            .game-visual { height: 150px; font-size: 3em; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Orbitron', 'Arial', sans-serif; background: #0a0e27; color: #fff; overflow: hidden; height: 100vh; }
+        #canvas { display: block; width: 100%; height: 100%; }
+        .ui { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
+        .header { position: fixed; top: 0; left: 0; right: 0; padding: 20px 40px; background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); z-index: 101; pointer-events: auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 32px; font-weight: bold; background: linear-gradient(45deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .wallet { background: rgba(0, 212, 255, 0.1); padding: 12px 24px; border-radius: 8px; border: 2px solid #00d4ff; backdrop-filter: blur(10px); pointer-events: auto; }
+        .balance { font-size: 18px; color: #00d4ff; }
+        .balance-amount { font-size: 24px; color: #ffd700; font-weight: bold; }
+        .controls { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 101; pointer-events: auto; }
+        .btn { padding: 12px 30px; font-size: 16px; font-weight: bold; border: 2px solid #ffd700; background: linear-gradient(45deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05)); color: #ffd700; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px; backdrop-filter: blur(10px); }
+        .btn:hover { background: linear-gradient(45deg, rgba(255, 215, 0, 0.4), rgba(255, 215, 0, 0.2)); box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); transform: scale(1.05); }
+        .btn:active { transform: scale(0.95); }
+        .btn-spin { padding: 15px 40px; font-size: 18px; background: linear-gradient(45deg, #00d4ff, #0099cc); border-color: #00d4ff; color: #fff; }
+        .btn-spin:hover { box-shadow: 0 0 30px rgba(0, 212, 255, 0.8); }
+        .game-info { position: fixed; top: 100px; right: 40px; background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 8px; border: 2px solid #00d4ff; max-width: 300px; z-index: 101; pointer-events: auto; backdrop-filter: blur(10px); }
+        .game-title { font-size: 20px; color: #ffd700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .game-stats { font-size: 14px; color: #00d4ff; line-height: 1.8; }
+        .stat-label { color: #aaa; }
+        .stat-value { color: #ffd700; font-weight: bold; }
+        .result-overlay { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 0, 0, 0.95); padding: 40px; border-radius: 12px; border: 3px solid #ffd700; text-align: center; z-index: 102; pointer-events: auto; backdrop-filter: blur(10px); display: none; min-width: 400px; box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
+        .result-overlay.show { display: block; animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes popIn { 0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+        .result-title { font-size: 36px; color: #ffd700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
+        .result-amount { font-size: 48px; color: #00d4ff; margin-bottom: 20px; font-weight: bold; }
+        .result-symbols { font-size: 32px; margin-bottom: 20px; letter-spacing: 10px; }
+        .close-result { margin-top: 20px; padding: 10px 20px; background: #ffd700; color: #000; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .close-result:hover { background: #ffed4e; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>🎰 ROYAL SPIN CASINO</h1>
-        <p class="subtitle">Premium Real-Money Gaming Platform</p>
-    </header>
-
-    <div class="container">
-        <div class="status-banner">
-            ✅ LIVE & OPERATIONAL - Backend: https://royal-spin-casino.up.railway.app
-        </div>
-
-        <div class="info-box">
-            <h2>Welcome to Royal Spin Casino</h2>
-            <p>Experience premium online gaming with our state-of-the-art slot machines, secure payment processing, and professional player support.</p>
-        </div>
-
-        <h2 class="section-title">🎮 Featured Games</h2>
-        <div class="games-grid">
-            <div class="game-card">
-                <div class="game-emoji">🦬</div>
-                <h3>Buffalo Gold</h3>
-                <div class="game-rtp">RTP: 94%</div>
-                <p class="game-desc">Classic favorite with massive payouts and exciting bonus features</p>
-                <button class="btn-play" onclick="playGame('Buffalo Gold')">Play Now</button>
-            </div>
-
-            <div class="game-card">
-                <div class="game-emoji">🐉</div>
-                <h3>Dragon Link</h3>
-                <div class="game-rtp">RTP: 96%</div>
-                <p class="game-desc">Asian-inspired with premium features and dragon bonuses</p>
-                <button class="btn-play" onclick="playGame('Dragon Link')">Play Now</button>
-            </div>
-
-            <div class="game-card">
-                <div class="game-emoji">⚡</div>
-                <h3>Lightning Link</h3>
-                <div class="game-rtp">RTP: 95%</div>
-                <p class="game-desc">Fast-paced action with electrifying wins and big payouts</p>
-                <button class="btn-play" onclick="playGame('Lightning Link')">Play Now</button>
-            </div>
-
-            <div class="game-card">
-                <div class="game-emoji">🎊</div>
-                <h3>88 Fortunes</h3>
-                <div class="game-rtp">RTP: 94%</div>
-                <p class="game-desc">Lucky number bonuses and fortune wheel spins</p>
-                <button class="btn-play" onclick="playGame('88 Fortunes')">Play Now</button>
-            </div>
-
-            <div class="game-card">
-                <div class="game-emoji">🎡</div>
-                <h3>Wheel of Fortune</h3>
-                <div class="game-rtp">RTP: 92%</div>
-                <p class="game-desc">Spin the legendary wheel for massive prize pools</p>
-                <button class="btn-play" onclick="playGame('Wheel of Fortune')">Play Now</button>
-            </div>
-
-            <div class="game-card">
-                <div class="game-emoji">🥁</div>
-                <h3>Dancing Drums</h3>
-                <div class="game-rtp">RTP: 93%</div>
-                <p class="game-desc">Rhythmic wins and percussion-themed bonus rounds</p>
-                <button class="btn-play" onclick="playGame('Dancing Drums')">Play Now</button>
+    <canvas id="canvas"></canvas>
+    <div class="ui">
+        <div class="header">
+            <div class="logo">🎰 ROYAL SPIN CASINO</div>
+            <div class="wallet">
+                <span class="balance">Balance:</span>
+                <span class="balance-amount" id="balance">$5,000.00</span>
             </div>
         </div>
-
-        <h2 class="section-title">✨ Why Choose Royal Spin?</h2>
-        <div class="features-grid">
-            <div class="feature-box">
-                <h3>🔒 Secure</h3>
-                <p>Bank-level encryption & SSL protection for all transactions</p>
-            </div>
-            <div class="feature-box">
-                <h3>💳 Easy Deposits</h3>
-                <p>Stripe payment processing for instant deposits</p>
-            </div>
-            <div class="feature-box">
-                <h3>⚡ Fast Payouts</h3>
-                <p>Instant withdrawal processing to your account</p>
-            </div>
-            <div class="feature-box">
-                <h3>🎯 Fair Gaming</h3>
-                <p>Provably fair RNG system verified by auditors</p>
-            </div>
-            <div class="feature-box">
-                <h3>📱 Mobile Ready</h3>
-                <p>Play seamlessly on any device, anytime</p>
-            </div>
-            <div class="feature-box">
-                <h3>🎁 Bonuses</h3>
-                <p>Daily rewards and exclusive promotions</p>
+        <div class="game-info">
+            <div class="game-title" id="gameName">Buffalo Gold</div>
+            <div class="game-stats">
+                <div><span class="stat-label">RTP:</span> <span class="stat-value" id="rtp">95.5%</span></div>
+                <div><span class="stat-label">Bet:</span> <span class="stat-value" id="bet">$10.00</span></div>
+                <div><span class="stat-label">Status:</span> <span class="stat-value" id="status">Ready</span></div>
             </div>
         </div>
-
-        <div class="info-box">
-            <h2>🏆 Platform Features</h2>
-            <ul>
-                <li>✅ Real-money deposits and withdrawals</li>
-                <li>✅ 6 premium slot machines with varying RTPs</li>
-                <li>✅ Live transaction history and account management</li>
-                <li>✅ KYC verification system for compliance</li>
-                <li>✅ Complete compliance & audit logging</li>
-                <li>✅ Admin dashboard for operators</li>
-                <li>✅ 24/7 player support</li>
-                <li>✅ Responsible gaming tools and limits</li>
-            </ul>
+        <div class="controls">
+            <button class="btn" id="betDown">- Bet</button>
+            <button class="btn" id="betUp">+ Bet</button>
+            <button class="btn btn-spin" id="spinBtn">SPIN</button>
+            <button class="btn" id="maxBet">Max Bet</button>
+        </div>
+        <div class="result-overlay" id="resultOverlay">
+            <div class="result-title" id="resultTitle">YOU WIN!</div>
+            <div class="result-symbols" id="resultSymbols">🦬 🦬 🦬</div>
+            <div class="result-amount" id="resultAmount">+$500</div>
+            <button class="close-result" onclick="closeResult()">Continue</button>
         </div>
     </div>
 
-    <footer>
-        <div class="footer-text">&copy; 2026 Royal Spin Casino. All rights reserved.</div>
-        <div class="footer-text">Licensed & Regulated | Responsible Gaming</div>
-        <div class="footer-text" style="font-size: 0.9em; margin-top: 15px;">
-            Backend API: <strong>https://royal-spin-casino.up.railway.app</strong>
-        </div>
-    </footer>
-
-    <!-- Game Modal -->
-    <div id="gameModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeGame()">&times;</span>
-            <div class="slot-machine">
-                <h2 id="gameName" style="text-align: center; color: #ffd700; margin-bottom: 20px;"></h2>
-                <div class="reels">
-                    <div class="reel" id="reel1">🍒</div>
-                    <div class="reel" id="reel2">🍒</div>
-                    <div class="reel" id="reel3">🍒</div>
-                </div>
-                <button class="spin-button" id="spinBtn" onclick="spinReels()">SPIN THE REELS</button>
-                <div class="result" id="result"></div>
-            </div>
-        </div>
-    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <script>
-        const symbols = ['🍒', '🍊', '🍋', '🍌', '💎', '👑'];
-        let isSpinning = false;
+        const gameState = {
+            balance: 5000,
+            currentBet: 10,
+            minBet: 1,
+            maxBet: 1000,
+            isSpinning: false,
+            currentGame: 'Buffalo Gold',
+            rtp: 95.5,
+            symbols: ['🦬', '🌾', '⭐', '💎', '🏆', '🎯'],
+        };
 
-        function launchGame(gameName, gameId) {
-            document.getElementById('gameName').textContent = gameName;
-            document.getElementById('gameModal').style.display = 'block';
-            document.getElementById('result').textContent = '';
-            resetReels();
-        }
+        const canvas = document.getElementById('canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 
-        function closeGame() {
-            document.getElementById('gameModal').style.display = 'none';
-        }
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x0a0e27, 1);
+        renderer.shadowMap.enabled = true;
 
-        function resetReels() {
-            document.getElementById('reel1').textContent = '🍒';
-            document.getElementById('reel2').textContent = '🍒';
-            document.getElementById('reel3').textContent = '🍒';
-            document.getElementById('spinBtn').disabled = false;
-        }
+        camera.position.z = 5;
 
-        function spinReels() {
-            if (isSpinning) return;
-            isSpinning = true;
-            document.getElementById('spinBtn').disabled = true;
-            document.getElementById('result').textContent = '';
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
 
-            const reels = ['reel1', 'reel2', 'reel3'];
-            const spinDuration = 500;
+        const pointLight = new THREE.PointLight(0x00d4ff, 1);
+        pointLight.position.set(5, 5, 5);
+        pointLight.castShadow = true;
+        scene.add(pointLight);
 
-            reels.forEach((reelId, index) => {
-                const reel = document.getElementById(reelId);
-                reel.classList.add('spinning');
+        const pointLight2 = new THREE.PointLight(0xffd700, 0.8);
+        pointLight2.position.set(-5, -5, 5);
+        scene.add(pointLight2);
 
-                let spins = 0;
-                const spinInterval = setInterval(() => {
-                    reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                    spins++;
-                    if (spins > 10) {
-                        clearInterval(spinInterval);
-                        reel.classList.remove('spinning');
-                    }
-                }, 50);
+        function createSlotMachine() {
+            const group = new THREE.Group();
 
-                setTimeout(() => {
-                    clearInterval(spinInterval);
-                    reel.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                    reel.classList.remove('spinning');
-                }, spinDuration);
+            const cabinetGeometry = new THREE.BoxGeometry(3, 4, 0.5);
+            const cabinetMaterial = new THREE.MeshStandardMaterial({
+                color: 0x1a1a2e,
+                metalness: 0.8,
+                roughness: 0.2
+            });
+            const cabinet = new THREE.Mesh(cabinetGeometry, cabinetMaterial);
+            cabinet.castShadow = true;
+            cabinet.receiveShadow = true;
+            group.add(cabinet);
+
+            const reels = [];
+            const reelPositions = [-1.2, 0, 1.2];
+
+            reelPositions.forEach((x, index) => {
+                const reel = createReel(index);
+                reel.position.x = x;
+                reel.position.y = 0.5;
+                group.add(reel);
+                reels.push(reel);
             });
 
-            setTimeout(() => {
-                checkWin();
-                isSpinning = false;
-                document.getElementById('spinBtn').disabled = false;
-            }, spinDuration + 100);
+            group.reels = reels;
+            return group;
         }
 
-        function checkWin() {
-            const reel1 = document.getElementById('reel1').textContent;
-            const reel2 = document.getElementById('reel2').textContent;
-            const reel3 = document.getElementById('reel3').textContent;
+        function createReel(index) {
+            const group = new THREE.Group();
 
-            if (reel1 === reel2 && reel2 === reel3) {
-                const winAmount = Math.floor(Math.random() * 5000) + 500;
-                document.getElementById('result').innerHTML = `🎉 <strong>WIN!</strong> +$${winAmount}`;
-                document.getElementById('result').style.color = '#00ff88';
+            const reelGeometry = new THREE.BoxGeometry(0.8, 2.5, 0.3);
+            const reelMaterial = new THREE.MeshStandardMaterial({
+                color: 0x2a2a4e,
+                metalness: 0.6,
+                roughness: 0.4
+            });
+            const reelBg = new THREE.Mesh(reelGeometry, reelMaterial);
+            reelBg.castShadow = true;
+            reelBg.receiveShadow = true;
+            group.add(reelBg);
+
+            const frameGeometry = new THREE.BoxGeometry(0.9, 2.6, 0.05);
+            const frameMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffd700,
+                metalness: 0.9,
+                roughness: 0.1
+            });
+            const frame = new THREE.Mesh(frameGeometry, frameMaterial);
+            frame.position.z = 0.2;
+            frame.castShadow = true;
+            group.add(frame);
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 768;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, 256, 768);
+
+            gameState.symbols.forEach((symbol, i) => {
+                ctx.fillStyle = '#ffd700';
+                ctx.font = 'bold 80px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(symbol, 128, 128 + i * 128);
+            });
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const symbolMaterial = new THREE.MeshStandardMaterial({
+                map: texture,
+                metalness: 0.3,
+                roughness: 0.7
+            });
+            const symbolMesh = new THREE.Mesh(reelGeometry, symbolMaterial);
+            symbolMesh.position.z = 0.15;
+            group.add(symbolMesh);
+
+            group.symbolMesh = symbolMesh;
+            group.currentRotation = 0;
+            return group;
+        }
+
+        const slotMachine = createSlotMachine();
+        scene.add(slotMachine);
+
+        function createStars() {
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.05,
+                sizeAttenuation: true
+            });
+
+            const starsVertices = [];
+            for (let i = 0; i < 1000; i++) {
+                const x = (Math.random() - 0.5) * 100;
+                const y = (Math.random() - 0.5) * 100;
+                const z = (Math.random() - 0.5) * 100;
+                starsVertices.push(x, y, z);
+            }
+
+            starsGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(starsVertices), 3));
+            const stars = new THREE.Points(starsGeometry, starsMaterial);
+            scene.add(stars);
+        }
+
+        createStars();
+
+        function updateUI() {
+            document.getElementById('balance').textContent = '$' + gameState.balance.toFixed(2);
+            document.getElementById('bet').textContent = '$' + gameState.currentBet.toFixed(2);
+            document.getElementById('gameName').textContent = gameState.currentGame;
+            document.getElementById('rtp').textContent = gameState.rtp + '%';
+        }
+
+        async function spin() {
+            if (gameState.isSpinning || gameState.balance < gameState.currentBet) return;
+
+            gameState.isSpinning = true;
+            gameState.balance -= gameState.currentBet;
+            document.getElementById('status').textContent = 'Spinning...';
+            document.getElementById('spinBtn').disabled = true;
+
+            const spinPromises = slotMachine.reels.map((reel, index) => {
+                return new Promise(resolve => {
+                    const rotations = 5 + Math.random() * 3;
+                    gsap.to(reel, {
+                        rotation: rotations * Math.PI * 2,
+                        duration: 2 + index * 0.3,
+                        ease: 'power2.inOut',
+                        onComplete: resolve
+                    });
+                });
+            });
+
+            await Promise.all(spinPromises);
+
+            const result = gameState.symbols.map(() => gameState.symbols[Math.floor(Math.random() * gameState.symbols.length)]);
+            const isWin = result[0] === result[1] && result[1] === result[2];
+            let winAmount = 0;
+
+            if (isWin) {
+                winAmount = gameState.currentBet * (50 + Math.random() * 100);
+                gameState.balance += winAmount;
+                showResult(true, result, winAmount);
             } else {
-                document.getElementById('result').textContent = 'Try again!';
-                document.getElementById('result').style.color = '#ff6b6b';
+                showResult(false, result, 0);
             }
+
+            gameState.isSpinning = false;
+            document.getElementById('status').textContent = 'Ready';
+            document.getElementById('spinBtn').disabled = false;
+            updateUI();
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('gameModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
+        function showResult(isWin, symbols, amount) {
+            const overlay = document.getElementById('resultOverlay');
+            document.getElementById('resultTitle').textContent = isWin ? '🎉 YOU WIN! 🎉' : 'NO MATCH';
+            document.getElementById('resultSymbols').textContent = symbols.join(' ');
+            document.getElementById('resultAmount').textContent = isWin ? '+$' + amount.toFixed(2) : '-$' + gameState.currentBet.toFixed(2);
+            overlay.classList.add('show');
         }
+
+        function closeResult() {
+            document.getElementById('resultOverlay').classList.remove('show');
+        }
+
+        document.getElementById('spinBtn').addEventListener('click', spin);
+        document.getElementById('betUp').addEventListener('click', () => {
+            gameState.currentBet = Math.min(gameState.currentBet + 10, gameState.maxBet);
+            updateUI();
+        });
+        document.getElementById('betDown').addEventListener('click', () => {
+            gameState.currentBet = Math.max(gameState.currentBet - 10, gameState.minBet);
+            updateUI();
+        });
+        document.getElementById('maxBet').addEventListener('click', () => {
+            gameState.currentBet = Math.min(gameState.maxBet, gameState.balance);
+            updateUI();
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            slotMachine.rotation.y += 0.0005;
+            pointLight.position.x = Math.sin(Date.now() * 0.001) * 5;
+            pointLight.position.y = Math.cos(Date.now() * 0.0008) * 5;
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        updateUI();
     </script>
 </body>
 </html>

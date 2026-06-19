@@ -1,7 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,7 +15,9 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Health Check
 app.get('/api/health', (req, res) => {
@@ -38,6 +46,11 @@ app.post('/api/games/:gameId/spin', (req, res) => {
   res.json({ success: true, result: 'WIN', amount: 250 });
 });
 
+// Serve casino.html as root
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/casino.html'));
+});
+
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);
@@ -48,7 +61,8 @@ app.use((err, req, res, next) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🎰 Royal Spin Casino Server running on port ${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Casino available at: http://localhost:${PORT}`);
 });

@@ -5,12 +5,12 @@ dotenv.config();
 
 const { Client } = pkg;
 
+// Use DATABASE_URL if available (Railway), otherwise build from individual env vars
+const connectionString = process.env.DATABASE_URL || 
+  `postgresql://${process.env.DB_USER || 'postgres'}:${process.env.DB_PASSWORD}@${process.env.DB_HOST || 'localhost'}:${process.env.DB_PORT || 5432}/postgres`;
+
 const client = new Client({
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD,
-  database: 'postgres'
+  connectionString
 });
 
 const createDatabaseSQL = `
@@ -230,4 +230,9 @@ async function setupDatabase() {
   }
 }
 
-setupDatabase();
+// Only run setup if explicitly called
+if (process.argv[2] === 'setup') {
+  setupDatabase();
+} else {
+  console.log('Database setup script loaded. Run with: node server/db/setup.js setup');
+}
